@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
 
 
@@ -58,10 +60,38 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
+  <script>
+    (function () {
+      function playHandler(e) {
+        //撥放音樂
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        //如果找到音樂就播放
+        if (audio) {
+          audio.currentTime = 0; //連續觸發音效
+          audio.play();
+        };
 
-</script>
+        //改變樣式
+        const dom = document.querySelector(`div[data-key="${e.keyCode}"]`);
+        //如果找到dom就加class
+        if (dom) dom.classList.add('playing');
+        //console.log(audio, dom);
+      }
+
+      function transitionendHandler(e) {
+        if (e.propertyName === 'transform') {
+          e.currentTarget.classList.remove('playing');
+        }
+      }
+
+      window.addEventListener('keydown', playHandler)
+      document.querySelectorAll('.key').forEach(function (key) {
+        key.addEventListener('transitionend', transitionendHandler)
+      })
+    })()
+  </script>
 
 
 </body>
+
 </html>
