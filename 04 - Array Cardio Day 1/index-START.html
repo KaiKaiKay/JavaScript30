@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -28,6 +30,11 @@
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
 
+    //新增一個欄位看"歲數"從小到大排序
+    inventors.forEach((inventor) => {
+      inventor.years = inventor.passed - inventor.year
+    })
+
     const people = [
       'Bernhard, Sandra', 'Bethea, Erin', 'Becker, Carl', 'Bentsen, Lloyd', 'Beckett, Samuel', 'Blake, William', 'Berger, Ric', 'Beddoes, Mick', 'Beethoven, Ludwig',
       'Belloc, Hilaire', 'Begin, Menachem', 'Bellow, Saul', 'Benchley, Robert', 'Blair, Robert', 'Benenson, Peter', 'Benjamin, Walter', 'Berlin, Irving',
@@ -35,32 +42,99 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
-    // Array.prototype.filter()
+
+    // Array.prototype.filter() 篩選
     // 1. Filter the list of inventors for those who were born in the 1500's
+
+    // let ans = inventors.filter(function(inventor){
+    //   return inventor.year>=1500&& inventor.year<1600;
+    // });
+
+    //let ans = inventors.filter((inventor) => inventor.year >= 1500 && inventor.year < 1600);
+    //console.table(ans);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
+    // let ans = inventors.map(inventors => inventors.first + ' ' + inventors.last);
+    // console.table(ans);
+
+    //若用forEach 要自己產一個陣列 再把資料推進陣列中
+    // let ans =[];
+    // inventors.forEach(inventors => ans.push(inventors.first + ' ' + inventors.last));
+    // console.table(ans);
+
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    //let ans=inventors.sort((a,b)=>a.year-b.year);
+
+    //console.table(ans);
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    // let total = inventors.reduce((total, inventor) => {
+    //   return total + inventor.passed - inventor.year
+    //     ;
+    // }, 0)
+    // console.table(total);
 
     // 5. Sort the inventors by years lived
+    // let ans = inventors.sort((a, b) => {
+    //   return (a.passed - a.year) - (b.passed - b.year);
+    // })
+    // console.table(ans);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    //mw-category-group不是陣列 不可以用map 
+    // let ary = []
+    // document.querySelectorAll('.mw-category-group li a').forEach((a) => {
+    //   ary.push(a.title)
+    // });
+    // let ans = ary.filter(title => title.indexOf('de') !== -1);
+    // console.log(ans);
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    // let ans = people.sort((a, b) => {
+    // let [aFirst, aLast] = a.split(', ');
+    // let [bFirst, bLast] = b.split(', ');
+
+    //連續三元運算 a有沒有大於b 有的話1 不然 b有沒有大於a 有的話-1 再不然0
+    // if(aLast>bLast){
+    //   1
+    // }else if(bLast>aLast){
+    //   -1
+    // }else{
+    //   0
+    // };
+
+    //用正個字來排序
+    //return aLast > bLast ? 1 : bLast > aLast ? -1 : 0
+    //用字首來排序
+    //return aLast[0] > bLast[0] ? 1 : bLast[0] > aLast[0] ? -1 : 0
+    //});
+    //console.table(ans);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+    let ans = data.reduce((obj, content) => {
+      if (!obj[content]) {
+        //如果物件沒有'car'，將'car'加至物件中
+        obj[content] = 1
+      } else {
+        //如果已有'car' 將其屬性值+1
+        obj[content] += 1
+      }
+      return (obj);
+    }, {}) //預設空物件{}
+    console.table(ans);
 
   </script>
 </body>
+
 </html>
