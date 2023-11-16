@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪💪</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -27,16 +29,57 @@
 
     // Some and Every Checks
     // Array.prototype.some() // is at least one person 19 or older?
-    // Array.prototype.every() // is everyone 19 or older?
+    const ans = people.some(p => {
+      return new Date().getUTCFullYear() - p.year >= 19;
+    });
+    document.write(ans, "<br>");
 
-    // Array.prototype.find()
+    // Array.prototype.every() // is everyone 19 or older?
+    const ans1 = people.every(p => {
+      return new Date().getUTCFullYear() - p.year >= 19;
+    });
+    document.write(ans1, "<br>");
+
+    // Array.prototype.find() 找本體
     // Find is like filter, but instead returns just the one you are looking for
     // find the comment with the ID of 823423
+    const ans2 = comments.find(comment => comment.id === 823423);
+    // const ans2 = comments.find(function (comment) {
+    //   return comment.id === 823423;
+    // });
+    console.log(ans2); //{text: "Super good", id: 823423}
 
-    // Array.prototype.findIndex()
+    // Array.prototype.findIndex() 找排序
     // Find the comment with this ID
+    const ans3 = comments.findIndex(comment => comment.id === 823423);
+    console.log(ans3);
+
     // delete the comment with the ID of 823423
+    // slice() vs splice()
+
+    // 方法一 splice() 刪除原始資料▼
+    // const ans4=comments.splice(ans3,1); //splice() 刪除原始資料
+    // console.log(ans4,comments);
+
+    // 方法二 slice() 拷貝原始資料▼
+    // const ans5=comments.slice(0,ans3); //切ans3之前資料
+    // const ans6=comments.slice(ans3+1); //切ans3之後資料
+    //console.log(ans5,ans6,comments); //原始資料 comments不會被影響
+
+    // const ans7=[...ans5,...ans6];
+    //const ans7 = [...comments.slice(0, ans3), ...comments.slice(ans3 + 1)]; //合併ans5 ans6
+    const ans7 = [...comments].splice(ans3, 1);
+    //說明
+    // 1. `comments` 陣列被複製成一個新的陣列。
+    // 2. `splice` 方法在這個新的陣列上執行，從索引 `ans3` 開始刪除一個元素。
+    // 3. 被刪除的元素組成的新陣列被賦值給 `ans7`。
+
+    // 需要注意的是，即使使用展開運算子複製了陣列，`splice` 方法依然會修改該複製的陣列。因此，`ans7` 中包含的是被刪除的元素，而原始 `comments` 陣列保持不變。
+    console.log(ans7, comments);
+
+
 
   </script>
 </body>
+
 </html>
